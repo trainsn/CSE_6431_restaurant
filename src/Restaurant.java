@@ -66,6 +66,7 @@ public class Restaurant {
         // start the timer
         startTime = System.currentTimeMillis() / 1000;
         int preArrival = 0;
+
         nonSeatedDiners = new PriorityQueue<>();
         hungryDiners = new PriorityQueue<>();
         typeBurger = MachineType.BURGER;
@@ -91,10 +92,8 @@ public class Restaurant {
 
             Diner dnr = new Diner(i + 1, arrivalTime, ord);
 
-
             Thread dinerThread = new Thread(dnr);
             int waitTime = 1000 * (dnr.arrivalTime - preArrival);
-//            System.out.println(waitTime);
             Thread.sleep((long) (waitTime * time_scale));
             dinerThread.start();
             preArrival = dnr.arrivalTime;

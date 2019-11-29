@@ -1,14 +1,12 @@
-import java.util.PriorityQueue;
-
 public class Machine {
     MachineType type;
     boolean isFree;
-    PriorityQueue<Diner> diners;
+    long finishedTime;
 
     public Machine(MachineType type){
         this.type = type;
         this.isFree = true;
-        this.diners = new PriorityQueue<>();
+        this.finishedTime = 0;
     }
 }
 
@@ -27,5 +25,4 @@ enum MachineType{
     public String getName(){
         return this.name;
     }
-
 }
