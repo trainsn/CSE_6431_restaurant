@@ -1,10 +1,14 @@
+import java.util.PriorityQueue;
+
 public class Machine {
     MachineType type;
     boolean isFree;
+    PriorityQueue<Diner> diners;
 
     public Machine(MachineType type){
         this.type = type;
         this.isFree = true;
+        this.diners = new PriorityQueue<>();
     }
 }
 

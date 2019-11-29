@@ -14,7 +14,7 @@ public class Diner implements Runnable, Comparable<Diner>{
 
     public void arrive(){
         synchronized (Restaurant.nonSeatedDiners){
-            System.out.println(getTime() + " - Diner " + diner_id + " arrives.");
+            System.out.println(Restaurant.printTime() + " - Diner " + diner_id + " arrives.");
             Restaurant.nonSeatedDiners.add(this);
         }
     }
@@ -27,7 +27,7 @@ public class Diner implements Runnable, Comparable<Diner>{
             }
             tableSeated = Restaurant.freeTables.remove(0);
             Restaurant.nonSeatedDiners.remove();
-            System.out.println(getTime() + " - Diner " + diner_id + " is seated at table " + tableSeated + ".");
+            System.out.println(Restaurant.printTime() + " - Diner " + diner_id + " is seated at table " + tableSeated + ".");
         }
     }
 
@@ -45,14 +45,14 @@ public class Diner implements Runnable, Comparable<Diner>{
     }
 
     public void eat() throws InterruptedException {
-        System.out.println(getTime() + " - Diner " + diner_id + "'s order is ready. " +
+        System.out.println(Restaurant.printTime() + " - Diner " + diner_id + "'s order is ready. " +
                 "Diner "  + diner_id + " starts eating.");
-        Thread.sleep(timeToEat);
+        Thread.sleep((long) (timeToEat * Restaurant.time_scale));
     }
 
 
     public void leave() {
-        System.out.println(getTime() + " - Diner " + diner_id + " finishes. " +
+        System.out.println(Restaurant.printTime() + " - Diner " + diner_id + " finishes. " +
                 "Diner " + diner_id + " leaves the restaurant.");
 
         synchronized(Restaurant.freeTables){
@@ -65,7 +65,7 @@ public class Diner implements Runnable, Comparable<Diner>{
         synchronized(Restaurant.leftDiners){
             Restaurant.leftDiners++;
             if (Restaurant.leftDiners == Restaurant.diners_count){
-                System.out.println(getTime() + " - The last diner leaves the restaurant.");
+                System.out.println(Restaurant.printTime() + " - The last diner leaves the restaurant.");
                 System.exit(0);
             }
         }
@@ -110,17 +110,5 @@ public class Diner implements Runnable, Comparable<Diner>{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getTime(){
-        long currentTime = System.currentTimeMillis() / 1000;
-        long timeSpent = currentTime - Restaurant.startTime;
-
-        long hour = timeSpent / 60;
-        String hour_str = String.format("%02d", hour);
-        long min = timeSpent % 60;
-        String min_str = String.format("%02d", min);
-
-        return (hour_str + ":" + min_str);
     }
 }

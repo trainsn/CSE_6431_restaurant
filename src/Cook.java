@@ -16,65 +16,51 @@ public class Cook implements Runnable{
 
             Order ord = dinerServed.order;
             if (ord.burgers_count > 0)
-                Restaurant.burgerDiners.add(dinerServed);
+                Restaurant.getMachine(Restaurant.typeBurger).diners.add(dinerServed);
             if (ord.fries_count > 0)
-                Restaurant.friesDiners.add(dinerServed);
+                Restaurant.getMachine(Restaurant.typeFries).diners.add(dinerServed);
             if (ord.coke_count > 0)
-                Restaurant.cokeDiners.add(dinerServed);
+                Restaurant.getMachine(Restaurant.typeCoke).diners.add(dinerServed);
 
-            System.out.println(getTime() + " - Cook " + cook_id + " processes Diner "
+            System.out.println(Restaurant.printTime() + " - Cook " + cook_id + " processes Diner "
                     + dinerServed.diner_id + "'s order.");
+        }
+    }
+
+    private void cookItem(MachineType type, int quantity) throws InterruptedException{
+        Order ord = dinerServed.order;
+        synchronized (type){
+            while (!Restaurant.getMachine(type).isFree ||
+                    dinerServed.diner_id != Restaurant.getMachine(type).diners.element().diner_id){
+                type.wait();
+            }
+            Restaurant.getMachine(type).isFree = false;
+            System.out.println(Restaurant.printTime() + " - Cook " + cook_id + " uses the " + type.getName() + " machine.");
+            Thread.sleep((long) (quantity * type.getPrepTime() * Restaurant.time_scale));
+            if (type == MachineType.BURGER)
+                ord.burgers_count = 0;
+            else if (type == MachineType.FRIES)
+                ord.fries_count = 0;
+            else if (type == MachineType.COKE)
+                ord.coke_count = 0;
+            Restaurant.getMachine(type).diners.remove();
+            Restaurant.getMachine(type).isFree = true;
+            type.notifyAll();
         }
     }
 
     public void makeOrder() throws InterruptedException {
         Order ord = dinerServed.order;
-        while (ord.burgers_count > 0){
-            synchronized (Restaurant.typeBurger){
-                while (!Restaurant.getMachine(Restaurant.typeBurger).isFree ||
-                        dinerServed.diner_id != Restaurant.burgerDiners.element().diner_id){
-                    Restaurant.typeBurger.wait();
-                }
-                Restaurant.getMachine(Restaurant.typeBurger).isFree = false;
-                System.out.println(getTime() + " - Cook " + cook_id + " uses the " + Restaurant.typeBurger.getName() + " machine.");
-                Thread.sleep(ord.burgers_count * Restaurant.typeBurger.getPrepTime());
-                ord.burgers_count = 0;
-                Restaurant.burgerDiners.remove();
-                Restaurant.getMachine(Restaurant.typeBurger).isFree = true;
-                Restaurant.typeBurger.notifyAll();
-            }
+        if (ord.burgers_count > 0){
+            cookItem(Restaurant.typeBurger, ord.burgers_count);
         }
 
-        while (ord.fries_count > 0){
-            synchronized (Restaurant.typeFries){
-                while (!Restaurant.getMachine(Restaurant.typeFries).isFree ||
-                        dinerServed.diner_id != Restaurant.friesDiners.element().diner_id){
-                    Restaurant.typeFries.wait();
-                }
-                Restaurant.getMachine(Restaurant.typeFries).isFree = false;
-                System.out.println(getTime() + " - Cook " + cook_id + " uses the " + Restaurant.typeFries.getName() + " machine.");
-                Thread.sleep(ord.fries_count * Restaurant.typeFries.getPrepTime());
-                ord.fries_count = 0;
-                Restaurant.friesDiners.remove();
-                Restaurant.getMachine(Restaurant.typeFries).isFree = true;
-                Restaurant.typeFries.notifyAll();
-            }
+        if (ord.fries_count > 0){
+            cookItem(Restaurant.typeFries, ord.fries_count);
         }
 
-        while (ord.coke_count > 0){
-            synchronized (Restaurant.typeCoke){
-                while (!Restaurant.getMachine(Restaurant.typeCoke).isFree ||
-                        dinerServed.diner_id != Restaurant.cokeDiners.element().diner_id){
-                    Restaurant.typeCoke.wait();
-                }
-                Restaurant.getMachine(Restaurant.typeCoke).isFree = false;
-                System.out.println(getTime() + " - Cook " + cook_id + " uses the " + Restaurant.typeCoke.getName() + " machine.");
-                Thread.sleep(ord.coke_count * Restaurant.typeCoke.getPrepTime());
-                ord.coke_count = 0;
-                Restaurant.cokeDiners.remove();
-                Restaurant.getMachine(Restaurant.typeCoke).isFree = true;
-                Restaurant.typeCoke.notifyAll();
-            }
+        if (ord.coke_count > 0){
+            cookItem(Restaurant.typeCoke, ord.coke_count);
         }
 
         synchronized (dinerServed) {
@@ -92,17 +78,5 @@ public class Cook implements Runnable{
                 e.printStackTrace();
             }
         }
-    }
-
-    public String getTime(){
-        long currentTime = System.currentTimeMillis() / 1000;
-        long timeSpent = currentTime - Restaurant.startTime;
-
-        long hour = timeSpent / 60;
-        String hour_str = String.format("%02d", hour);
-        long min = timeSpent % 60;
-        String min_str = String.format("%02d", min);
-
-        return (hour_str + ":" + min_str);
     }
 }

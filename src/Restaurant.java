@@ -5,9 +5,6 @@ public class Restaurant {
     public static ArrayList<Integer> freeTables;
     public static PriorityQueue<Diner> nonSeatedDiners;
     public static PriorityQueue<Diner> hungryDiners; // take seats, but order not processed.
-    public static PriorityQueue<Diner> burgerDiners; // wait before burger maker
-    public static PriorityQueue<Diner> friesDiners; // wait before fries maker
-    public static PriorityQueue<Diner> cokeDiners; // wait before coke maker
 
     public static int diners_count, tables_count, cooks_count;
     public static long startTime;
@@ -17,6 +14,8 @@ public class Restaurant {
     public static Machine friesMaker = new Machine(MachineType.FRIES);
     public static Machine cokeMaker = new  Machine(MachineType.COKE);
     public static MachineType typeBurger, typeFries, typeCoke;
+
+    public static float time_scale = (float) 2.0;
 
     static public Machine getMachine(MachineType type) throws InterruptedException{
         switch (type){
@@ -28,6 +27,24 @@ public class Restaurant {
                 return cokeMaker;
         }
         return null;
+    }
+
+    public static long getTime(){
+        long currentTime = System.currentTimeMillis() / 1000;
+        long timeSpent = (long) ((currentTime - startTime) / time_scale);
+
+        return timeSpent;
+    }
+
+    public static String printTime(){
+        long timeSpent = getTime();
+
+        long hour = timeSpent / 60;
+        String hour_str = String.format("%02d", hour);
+        long min = timeSpent % 60;
+        String min_str = String.format("%02d", min);
+
+        return (hour_str + ":" + min_str);
     }
 
     public static void main(String args[]) throws IOException, InterruptedException {
@@ -51,9 +68,6 @@ public class Restaurant {
         int preArrival = 0;
         nonSeatedDiners = new PriorityQueue<>();
         hungryDiners = new PriorityQueue<>();
-        burgerDiners = new PriorityQueue<>();
-        friesDiners = new PriorityQueue<>();
-        cokeDiners = new PriorityQueue<>();
         typeBurger = MachineType.BURGER;
         typeFries = MachineType.FRIES;
         typeCoke = MachineType.COKE;
@@ -81,7 +95,7 @@ public class Restaurant {
             Thread dinerThread = new Thread(dnr);
             int waitTime = 1000 * (dnr.arrivalTime - preArrival);
 //            System.out.println(waitTime);
-            Thread.sleep(waitTime);
+            Thread.sleep((long) (waitTime * time_scale));
             dinerThread.start();
             preArrival = dnr.arrivalTime;
         }
