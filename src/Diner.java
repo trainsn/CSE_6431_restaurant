@@ -13,7 +13,10 @@ public class Diner implements Runnable, Comparable<Diner>{
     }
 
     public void arrive(){
-        System.out.println(getTime() + " - Diner " + diner_id + " arrives.");
+        synchronized (Restaurant.nonSeatedDiners){
+            System.out.println(getTime() + " - Diner " + diner_id + " arrives.");
+            Restaurant.nonSeatedDiners.add(this);
+        }
     }
 
     public void takeSeat() throws InterruptedException{
@@ -50,9 +53,12 @@ public class Diner implements Runnable, Comparable<Diner>{
 
     public void leave() {
         System.out.println(getTime() + " - Diner " + diner_id + " finishes. " +
-                getTime() + " - Diner " + diner_id + " leaves the restaurant.");
+                "Diner " + diner_id + " leaves the restaurant.");
 
-        Restaurant.freeTables.notifyAll();
+        synchronized(Restaurant.freeTables){
+            Restaurant.freeTables.add(tableSeated);
+            Restaurant.freeTables.notify();
+        }
     }
 
     public void lastDinerLeaves() throws InterruptedException {
@@ -112,7 +118,7 @@ public class Diner implements Runnable, Comparable<Diner>{
 
         long hour = timeSpent / 60;
         String hour_str = String.format("%02d", hour);
-        long min = currentTime % 60;
+        long min = timeSpent % 60;
         String min_str = String.format("%02d", min);
 
         return (hour_str + ":" + min_str);

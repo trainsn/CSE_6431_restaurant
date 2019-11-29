@@ -40,14 +40,23 @@ public class Restaurant {
         tables_count = Integer.parseInt(bRead.readLine().trim());
         cooks_count = Integer.parseInt(bRead.readLine().trim());
 
-        // start the timer
-        startTime = System.currentTimeMillis() / 1000;
-
         // Add tables
         freeTables = new ArrayList<Integer>(tables_count);
         for (int i = 0; i < tables_count; i++) {
             freeTables.add(i + 1);
         }
+
+        // start the timer
+        startTime = System.currentTimeMillis() / 1000;
+        int preArrival = 0;
+        nonSeatedDiners = new PriorityQueue<>();
+        hungryDiners = new PriorityQueue<>();
+        burgerDiners = new PriorityQueue<>();
+        friesDiners = new PriorityQueue<>();
+        cokeDiners = new PriorityQueue<>();
+        typeBurger = MachineType.BURGER;
+        typeFries = MachineType.FRIES;
+        typeCoke = MachineType.COKE;
 
         // threads for cooks
         for (int i = 0; i < cooks_count; i++){
@@ -57,9 +66,6 @@ public class Restaurant {
         }
 
         // threads for diners
-        int preArrival = 0;
-        nonSeatedDiners = new PriorityQueue<>();
-        hungryDiners = new PriorityQueue<>();
         for (int i = 0; i < diners_count; i++){
             String line = bRead.readLine();
             String[] diner_info = line.split(",");
@@ -70,10 +76,11 @@ public class Restaurant {
                     Integer.parseInt(diner_info[3]));
 
             Diner dnr = new Diner(i + 1, arrivalTime, ord);
-            nonSeatedDiners.add(dnr);
+
 
             Thread dinerThread = new Thread(dnr);
             int waitTime = 1000 * (dnr.arrivalTime - preArrival);
+//            System.out.println(waitTime);
             Thread.sleep(waitTime);
             dinerThread.start();
             preArrival = dnr.arrivalTime;
