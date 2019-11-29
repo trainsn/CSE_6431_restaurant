@@ -14,8 +14,6 @@ public class Cook implements Runnable{
             }
             dinerServed = Restaurant.hungryDiners.remove();
 
-            Order ord = dinerServed.order;
-
             System.out.println(Restaurant.printTime() + " - Cook " + cook_id + " processes Diner "
                     + dinerServed.diner_id + "'s order.");
         }

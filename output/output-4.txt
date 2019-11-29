@@ -1,0 +1,143 @@
+00:01 - Diner 1 arrives.
+00:01 - Diner 1 is seated at table 1.
+00:01 - Cook 4 processes Diner 1's order.
+00:01 - Cook 4 uses the burger machine.
+00:02 - Diner 2 arrives.
+00:02 - Diner 2 is seated at table 2.
+00:02 - Cook 1 processes Diner 2's order.
+00:03 - Diner 3 arrives.
+00:03 - Diner 3 is seated at table 3.
+00:03 - Cook 3 processes Diner 3's order.
+00:03 - Cook 3 uses the fries machine.
+00:04 - Diner 4 arrives.
+00:04 - Diner 4 is seated at table 4.
+00:04 - Cook 2 processes Diner 4's order.
+00:05 - Diner 5 arrives.
+00:05 - Diner 5 is seated at table 5.
+00:06 - Diner 6 arrives.
+00:06 - Diner 6 is seated at table 6.
+00:06 - Cook 2 uses the fries machine.
+00:07 - Diner 7 arrives.
+00:11 - Cook 4 uses the fries machine.
+00:11 - Cook 2 uses the burger machine.
+00:14 - Cook 4 processes Diner 5's order.
+00:14 - Diner 1's order is ready. Diner 1 starts eating.
+00:21 - Cook 2 processes Diner 6's order.
+00:21 - Cook 3 uses the burger machine.
+00:21 - Diner 4's order is ready. Diner 4 starts eating.
+00:21 - Cook 2 uses the fries machine.
+00:31 - Diner 3's order is ready. Diner 3 starts eating.
+00:31 - Cook 1 uses the burger machine.
+00:41 - Diner 8 arrives.
+00:42 - Diner 9 arrives.
+00:43 - Diner 10 arrives.
+00:44 - Diner 11 arrives.
+00:44 - Diner 1 finishes. Diner 1 leaves the restaurant.
+00:44 - Diner 7 is seated at table 1.
+00:44 - Cook 3 processes Diner 7's order.
+00:44 - Cook 3 uses the fries machine.
+00:45 - Diner 12 arrives.
+00:46 - Diner 13 arrives.
+00:47 - Diner 14 arrives.
+00:51 - Diner 4 finishes. Diner 4 leaves the restaurant.
+00:51 - Diner 8 is seated at table 4.
+00:51 - Cook 1 uses the coke machine.
+00:51 - Cook 3 uses the burger machine.
+00:52 - Diner 2's order is ready. Diner 2 starts eating.
+00:52 - Cook 1 processes Diner 8's order.
+00:52 - Cook 1 uses the fries machine.
+00:56 - Cook 2 uses the burger machine.
+00:56 - Cook 3 uses the coke machine.
+00:57 - Diner 7's order is ready. Diner 7 starts eating.
+01:01 - Diner 3 finishes. Diner 3 leaves the restaurant.
+01:01 - Diner 9 is seated at table 3.
+01:01 - Cook 3 processes Diner 9's order.
+01:06 - Cook 4 uses the burger machine.
+01:06 - Diner 6's order is ready. Diner 6 starts eating.
+01:16 - Cook 4 uses the coke machine.
+01:16 - Cook 3 uses the burger machine.
+01:17 - Diner 5's order is ready. Diner 5 starts eating.
+01:21 - Diner 15 arrives.
+01:22 - Diner 16 arrives.
+01:22 - Diner 2 finishes. Diner 2 leaves the restaurant.
+01:22 - Diner 10 is seated at table 2.
+01:22 - Cook 4 processes Diner 10's order.
+01:22 - Cook 4 uses the fries machine.
+01:23 - Diner 17 arrives.
+01:24 - Diner 18 arrives.
+01:25 - Diner 19 arrives.
+01:26 - Diner 20 arrives.
+01:27 - Diner 7 finishes. Diner 7 leaves the restaurant.
+01:27 - Diner 11 is seated at table 1.
+01:27 - Cook 2 processes Diner 11's order.
+01:27 - Cook 2 uses the fries machine.
+01:36 - Diner 6 finishes. Diner 6 leaves the restaurant.
+01:36 - Diner 12 is seated at table 6.
+01:36 - Cook 3 uses the coke machine.
+01:36 - Cook 1 uses the burger machine.
+01:37 - Cook 3 processes Diner 12's order.
+01:37 - Diner 9's order is ready. Diner 9 starts eating.
+01:46 - Cook 3 uses the burger machine.
+01:46 - Diner 8's order is ready. Diner 8 starts eating.
+01:47 - Diner 5 finishes. Diner 5 leaves the restaurant.
+01:47 - Diner 13 is seated at table 5.
+01:47 - Cook 1 processes Diner 13's order.
+01:47 - Cook 1 uses the fries machine.
+01:56 - Cook 2 uses the burger machine.
+01:56 - Cook 3 uses the coke machine.
+01:57 - Diner 12's order is ready. Diner 12 starts eating.
+02:06 - Cook 4 uses the burger machine.
+02:06 - Diner 11's order is ready. Diner 11 starts eating.
+02:07 - Diner 9 finishes. Diner 9 leaves the restaurant.
+02:07 - Diner 14 is seated at table 3.
+02:07 - Cook 2 processes Diner 14's order.
+02:07 - Cook 2 uses the fries machine.
+02:16 - Diner 8 finishes. Diner 8 leaves the restaurant.
+02:16 - Diner 15 is seated at table 4.
+02:16 - Cook 3 processes Diner 15's order.
+02:16 - Diner 10's order is ready. Diner 10 starts eating.
+02:16 - Cook 2 uses the burger machine.
+02:21 - Cook 2 uses the coke machine.
+02:21 - Cook 1 uses the burger machine.
+02:22 - Diner 14's order is ready. Diner 14 starts eating.
+02:27 - Diner 12 finishes. Diner 12 leaves the restaurant.
+02:27 - Diner 16 is seated at table 6.
+02:27 - Cook 2 processes Diner 16's order.
+02:31 - Cook 2 uses the burger machine.
+02:31 - Diner 13's order is ready. Diner 13 starts eating.
+02:36 - Diner 11 finishes. Diner 11 leaves the restaurant.
+02:36 - Diner 17 is seated at table 1.
+02:36 - Cook 1 processes Diner 17's order.
+02:36 - Cook 1 uses the fries machine.
+02:46 - Diner 10 finishes. Diner 10 leaves the restaurant.
+02:46 - Diner 18 is seated at table 2.
+02:46 - Cook 4 processes Diner 18's order.
+02:46 - Cook 4 uses the fries machine.
+02:51 - Cook 2 uses the coke machine.
+02:51 - Cook 3 uses the burger machine.
+02:52 - Diner 14 finishes. Diner 14 leaves the restaurant.
+02:52 - Diner 19 is seated at table 3.
+02:52 - Cook 2 processes Diner 19's order.
+02:52 - Diner 16's order is ready. Diner 16 starts eating.
+03:01 - Diner 13 finishes. Diner 13 leaves the restaurant.
+03:01 - Diner 20 is seated at table 5.
+03:01 - Cook 2 uses the burger machine.
+03:01 - Cook 3 uses the fries machine.
+03:04 - Cook 3 processes Diner 20's order.
+03:04 - Diner 15's order is ready. Diner 15 starts eating.
+03:04 - Cook 3 uses the fries machine.
+03:11 - Cook 4 uses the burger machine.
+03:11 - Cook 2 uses the coke machine.
+03:12 - Diner 19's order is ready. Diner 19 starts eating.
+03:21 - Cook 1 uses the burger machine.
+03:21 - Diner 18's order is ready. Diner 18 starts eating.
+03:22 - Diner 16 finishes. Diner 16 leaves the restaurant.
+03:31 - Cook 3 uses the burger machine.
+03:31 - Diner 17's order is ready. Diner 17 starts eating.
+03:34 - Diner 15 finishes. Diner 15 leaves the restaurant.
+03:41 - Diner 20's order is ready. Diner 20 starts eating.
+03:42 - Diner 19 finishes. Diner 19 leaves the restaurant.
+03:51 - Diner 18 finishes. Diner 18 leaves the restaurant.
+04:01 - Diner 17 finishes. Diner 17 leaves the restaurant.
+04:11 - Diner 20 finishes. Diner 20 leaves the restaurant.
+04:11 - The last diner leaves the restaurant.
