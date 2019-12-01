@@ -8,11 +8,11 @@ public class Cook implements Runnable{
     }
 
     public void processOrder() throws InterruptedException {
-        synchronized (Restaurant.hungryDiners){
-            while (Restaurant.hungryDiners.isEmpty()){
-                Restaurant.hungryDiners.wait();
+        synchronized (Restaurant.seatedDiners){
+            while (Restaurant.seatedDiners.isEmpty()){
+                Restaurant.seatedDiners.wait();
             }
-            dinerServed = Restaurant.hungryDiners.remove();
+            dinerServed = Restaurant.seatedDiners.remove();
 
             System.out.println(Restaurant.printTime() + " - Cook " + cook_id + " processes Diner "
                     + dinerServed.diner_id + "'s order.");
@@ -28,20 +28,20 @@ public class Cook implements Runnable{
             Restaurant.getMachine(type).isFree = false;
             long time_span = 0;
             if (type == MachineType.BURGER)
-                time_span = ord.burgers_count * type.getPrepTime() / 1000;
+                time_span = ord.num_burgers * type.getPrepTime() / 1000;
             else if (type == MachineType.FRIES)
-                time_span = ord.fries_count * type.getPrepTime() / 1000;
+                time_span = ord.num_fries * type.getPrepTime() / 1000;
             else if (type == MachineType.COKE)
-                time_span = ord.coke_count * type.getPrepTime() / 1000;
+                time_span = ord.num_coke * type.getPrepTime() / 1000;
             Restaurant.getMachine(type).finishedTime = Restaurant.getTime() + time_span;
             System.out.println(Restaurant.printTime() + " - Cook " + cook_id + " uses the " + type.getName() + " machine.");
             Thread.sleep((long) (quantity * type.getPrepTime() * Restaurant.time_scale));
             if (type == MachineType.BURGER)
-                ord.burgers_count = 0;
+                ord.num_burgers = 0;
             else if (type == MachineType.FRIES)
-                ord.fries_count = 0;
+                ord.num_fries = 0;
             else if (type == MachineType.COKE)
-                ord.coke_count = 0;
+                ord.num_coke = 0;
             Restaurant.getMachine(type).isFree = true;
             Restaurant.getMachine(type).finishedTime = 0;
             type.notifyAll();
@@ -51,23 +51,23 @@ public class Cook implements Runnable{
     public void makeOrder() throws InterruptedException {
         Order ord = dinerServed.order;
         if (Restaurant.getMachine(MachineType.BURGER).finishedTime <= Restaurant.getMachine(MachineType.FRIES).finishedTime){
-            if (ord.burgers_count > 0){
-                cookItem(Restaurant.typeBurger, ord.burgers_count);
+            if (ord.num_burgers > 0){
+                cookItem(Restaurant.typeBurger, ord.num_burgers);
             }
-            if (ord.fries_count > 0){
-                cookItem(Restaurant.typeFries, ord.fries_count);
+            if (ord.num_fries > 0){
+                cookItem(Restaurant.typeFries, ord.num_fries);
             }
         } else {
-            if (ord.fries_count > 0){
-                cookItem(Restaurant.typeFries, ord.fries_count);
+            if (ord.num_fries > 0){
+                cookItem(Restaurant.typeFries, ord.num_fries);
             }
-            if (ord.burgers_count > 0){
-                cookItem(Restaurant.typeBurger, ord.burgers_count);
+            if (ord.num_burgers > 0){
+                cookItem(Restaurant.typeBurger, ord.num_burgers);
             }
         }
 
-        if (ord.coke_count > 0){
-            cookItem(Restaurant.typeCoke, ord.coke_count);
+        if (ord.num_coke > 0){
+            cookItem(Restaurant.typeCoke, ord.num_coke);
         }
 
         synchronized (dinerServed) {

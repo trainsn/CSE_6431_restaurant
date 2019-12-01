@@ -32,9 +32,9 @@ public class Diner implements Runnable, Comparable<Diner>{
     }
 
     public void takeOrder() {
-        synchronized (Restaurant.hungryDiners){
-            Restaurant.hungryDiners.add(this);
-            Restaurant.hungryDiners.notifyAll();
+        synchronized (Restaurant.seatedDiners){
+            Restaurant.seatedDiners.add(this);
+            Restaurant.seatedDiners.notifyAll();
         }
     }
 
@@ -64,7 +64,7 @@ public class Diner implements Runnable, Comparable<Diner>{
     public void lastDinerLeaves() throws InterruptedException {
         synchronized(Restaurant.leftDiners){
             Restaurant.leftDiners++;
-            if (Restaurant.leftDiners == Restaurant.diners_count){
+            if (Restaurant.leftDiners == Restaurant.num_diners){
                 System.out.println(Restaurant.printTime() + " - The last diner leaves the restaurant.");
                 System.exit(0);
             }
@@ -81,31 +81,13 @@ public class Diner implements Runnable, Comparable<Diner>{
 
     @Override
     public void run(){
-        arrive();
-
         try{
+            arrive();
             takeSeat();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        takeOrder();
-
-        try {
+            takeOrder();
             waitOrder();
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
-
-        try {
             eat();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        leave();
-
-        try {
+            leave();
             lastDinerLeaves();
         } catch (InterruptedException e) {
             e.printStackTrace();
